@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - DIAJAR</title>
+  <title>Registrasi - DIAJAR</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -39,8 +39,8 @@
       padding: 24px;
     }
 
-    .login-card {
-      width: min(100%, 440px);
+    .register-card {
+      width: min(100%, 480px);
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: 20px;
@@ -78,6 +78,12 @@
       margin-bottom: 14px;
     }
 
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
     label {
       display: block;
       margin-bottom: 8px;
@@ -85,9 +91,7 @@
       font-weight: 600;
     }
 
-    input[type="email"],
-    input[type="password"],
-    input[type="text"] {
+    input {
       width: 100%;
       border: 1px solid var(--line);
       border-radius: 12px;
@@ -103,40 +107,18 @@
       box-shadow: 0 0 0 3px rgba(15, 138, 95, 0.16);
     }
 
-    .password-wrap {
-      position: relative;
-    }
-
-    .toggle-password {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: transparent;
-      border: 0;
-      color: var(--primary);
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 12px;
-    }
-
     .row {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin: 8px 0 18px;
+      align-items: flex-start;
+      gap: 8px;
+      margin: 6px 0 18px;
       font-size: 13px;
       color: var(--muted);
     }
 
-    .remember {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .remember input {
+    .row input {
+      width: auto;
+      margin-top: 2px;
       accent-color: var(--primary);
     }
 
@@ -150,7 +132,7 @@
       text-decoration: underline;
     }
 
-    .btn-login {
+    .btn-register {
       width: 100%;
       border: 0;
       border-radius: 12px;
@@ -163,12 +145,12 @@
       transition: transform .15s ease, background-color .2s ease;
     }
 
-    .btn-login:hover {
+    .btn-register:hover {
       background: var(--primary-hover);
       transform: translateY(-1px);
     }
 
-    .signup {
+    .signin {
       margin-top: 16px;
       text-align: center;
       font-size: 13px;
@@ -176,23 +158,39 @@
     }
 
     @media (max-width: 480px) {
-      .login-card {
+      .register-card {
         padding: 24px 18px;
       }
 
       h1 {
         font-size: 24px;
       }
+
+      .field-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
     }
   </style>
 </head>
 <body>
-  <main class="login-card">
+  <main class="register-card">
     <span class="badge">DIAJAR</span>
-    <h1>Masuk ke Akun Anda</h1>
-    <p class="subtitle">Silakan login untuk melanjutkan ke dashboard pembelajaran.</p>
+    <h1>Buat Akun Baru</h1>
+    <p class="subtitle">Isi data di bawah untuk mulai belajar di platform DIAJAR.</p>
 
     <form action="#" method="post">
+      <div class="field-row">
+        <div class="field">
+          <label for="firstName">Nama Depan</label>
+          <input type="text" id="firstName" name="firstName" placeholder="Nama depan" required>
+        </div>
+        <div class="field">
+          <label for="lastName">Nama Belakang</label>
+          <input type="text" id="lastName" name="lastName" placeholder="Nama belakang" required>
+        </div>
+      </div>
+
       <div class="field">
         <label for="email">Email</label>
         <input type="email" id="email" name="email" placeholder="contoh@email.com" required>
@@ -200,37 +198,25 @@
 
       <div class="field">
         <label for="password">Password</label>
-        <div class="password-wrap">
-          <input type="password" id="password" name="password" placeholder="Masukkan password" required>
-          <button type="button" class="toggle-password" id="togglePassword">Lihat</button>
-        </div>
+        <input type="password" id="password" name="password" placeholder="Minimal 8 karakter" minlength="8" required>
       </div>
 
-      <div class="row">
-        <label class="remember">
-          <input type="checkbox" name="remember">
-          Ingat saya
-        </label>
-        <a href="#">Lupa password?</a>
+      <div class="field">
+        <label for="confirmPassword">Konfirmasi Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Ulangi password" minlength="8" required>
       </div>
 
-      <button class="btn-login" type="submit">Login</button>
+      <label class="row">
+        <input type="checkbox" name="terms" required>
+        Saya setuju dengan <a href="#">Syarat & Ketentuan</a> serta <a href="#">Kebijakan Privasi</a>.
+      </label>
+
+      <button class="btn-register" type="submit">Daftar Sekarang</button>
     </form>
 
-    <p class="signup">
-      Belum punya akun? <a href="register.html">Daftar sekarang</a>
+    <p class="signin">
+      Sudah punya akun? <a href="index.html">Masuk di sini</a>
     </p>
   </main>
-
-  <script>
-    const togglePassword = document.getElementById("togglePassword");
-    const passwordInput = document.getElementById("password");
-
-    togglePassword.addEventListener("click", () => {
-      const showPassword = passwordInput.type === "password";
-      passwordInput.type = showPassword ? "text" : "password";
-      togglePassword.textContent = showPassword ? "Sembunyi" : "Lihat";
-    });
-  </script>
 </body>
 </html>
